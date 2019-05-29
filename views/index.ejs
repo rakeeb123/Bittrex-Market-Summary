@@ -19,7 +19,7 @@
 				<% for(var i = 0; i < 1; i++) { %>
 					<th><%= headers[i] %></th>
 				<% } %>
-				<th class="sort" data-sort="pct"><a href="#">Percentage Gain ▼</a></th>
+				<th><a href="#" onclick="onSort()" id="pctgain">Percentage Gain ▿</a></th>
 				<% for(var i = 1; i < headers.length; i++) { %>
 					<th><%= headers[i] %></th>
 				<% } %>
@@ -54,6 +54,30 @@
 	};
 
 	var dataList = new List('dataList', options);
+	
+    function listJSCustomNumericSort(a, b)
+    {
+        var before = parseFloat(a._values.pct.replace(/[^0-9.-]/g, ""));
+        var after = parseFloat(b._values.pct.replace(/[^0-9.-]/g, ""));
+
+        if (before > after) { return 1; }
+        if (before < after) { return -1; }
+        else { return 0; }
+    }
+    var clicked = false;
+    function onSort() {
+    	if (clicked === false) {
+    		dataList.sort('pct', {sortFunction: listJSCustomNumericSort, order: 'desc'} );
+    		document.getElementById("pctgain").innerHTML = "Percentage Gain ▾";
+    		clicked = true;
+    	}
+    	else {
+    		dataList.sort('pct', {sortFunction: listJSCustomNumericSort, order: 'asc'} );
+    		document.getElementById("pctgain").innerHTML = "Percentage Gain ▴";
+    		clicked = false;
+    	}
+    }
+	
 </script>
 
 </html>
