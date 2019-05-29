@@ -19,6 +19,10 @@ router.get('/', function(req, res, next) {
   		}
   		res.render('index', {data: lst, headers: Object.keys(lst[0]), percentGain: pct});
   	})
+    .catch(function(error) {
+      console.log(error);
+      res.render('error');
+    })
 });
 
 module.exports = router;
