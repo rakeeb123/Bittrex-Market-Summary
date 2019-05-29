@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Coin Market Summaries</title>
+  
+      <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+
+<body>
+  <h1>Bittrex API: Coin Market Summaries</h1>
+  <div class="container" id="dataList">
+  	<input class="search searchclass" placeholder="Search Trading Pairs..."/>
+  	<div style="height:500px;width:900px;overflow:auto;">
+	<table>
+		<thead>
+			<tr>
+				<% for(var i = 0; i < 1; i++) { %>
+					<th><%= headers[i] %></th>
+				<% } %>
+				<th class="sort" data-sort="pct"><a href="#">Percentage Gain ▼</a></th>
+				<% for(var i = 1; i < headers.length; i++) { %>
+					<th><%= headers[i] %></th>
+				<% } %>
+			</tr>
+		</thead>
+		<tbody class="list">
+			<% for(var i = 0; i < data.length; i++) { %>
+				<tr> 
+					<td class="id"> <%= data[i][headers[0]] %></td>
+					<td class="pct" <% if (percentGain[i] >= 0) {%>
+						style="color:#9fe86f"
+					<%} else{%>
+						style="color:#cc5f5f"
+					<% } %>
+					><%= percentGain[i] %></td>
+					<% for(var j = 1; j < headers.length; j++) { %>
+						<td> <%= data[i][headers[j]] %></td>
+					<% } %>
+				</tr>
+			<% } %>
+		</tbody>
+	</table>
+</div>
+</div>
+  
+ 
+</body>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script>
+	var options = {
+	  valueNames: [ 'id', 'pct' ]
+	};
+
+	var dataList = new List('dataList', options);
+</script>
+
+</html>
